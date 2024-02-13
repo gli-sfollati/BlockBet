@@ -1,0 +1,30 @@
+@media (min-width: 1200px){
+.container {
+    max-width: 1440px !important;
+}
+}
+
+.cardProfilo{
+margin-left: 790px;
+width: 21rem;
+    padding-bottom: 15px;
+    padding-top: 0px;
+    height: fit-content;
+}
+
+.list1{
+    background-color:#575c61
+}
+
+.btn{
+    background-color: rgb(132, 208, 203);
+}
+
+.btn-registrati{
+    display: none;
+}
+
+.divRegistrati{
+    background-color: #575c61; height: fit-content; width: fit-content; margin-left: 628px;
+    display: none;
+}

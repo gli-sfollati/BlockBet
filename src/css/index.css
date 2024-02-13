@@ -1,0 +1,50 @@
+div#container {
+    border: 1px solid #FF0000; /* Da togliere successivamente */
+    height: 150px; /* altezza */
+    width: 100%; /* larghezza */
+    display:flex;
+    flex-direction: row;
+}
+
+
+
+div#logo {
+    background: #8e2e56;
+    display: block;
+    height: 30px;
+    padding-bottom: 9px;
+    text-align: center;
+    margin-top: 1%;
+    margin-left: 2%;
+
+}
+
+div#content {
+    background: #381b91;
+    margin-left:500px;
+    width: 200px;
+}
+
+div#actions {
+    display: flex;
+    flex-direction: row;
+    margin-left: 500px;
+}
+
+.rigActions {
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #3d5d37;
+    margin-top: 3%;
+    margin-left: 2%;
+}
+
+
+#eth1{
+    font-size: 30px;
+    color: red;
+    padding-left: 10px;
+    padding-top: 38px;
+}
+
+

@@ -1,0 +1,9 @@
+#mioTitolo {
+    color: #3498db; /* Colore del testo (blu in questo caso) */
+    font-size: 24px; /* Dimensione del testo */
+    font-weight: bold; /* Grassetto */
+    text-align: center; /* Allineamento al centro */
+    text-transform: uppercase; /* Trasformazione del testo in maiuscolo */
+    letter-spacing: 2px; /* Spaziatura tra le lettere */
+    margin-top: 20px; /* Margine superiore */
+}
