@@ -43,7 +43,7 @@ contract Roulette is Profile{
   constructor() payable {
     necessaryBalance = 0;
     nextRoundTimestamp = block.timestamp;
-    payouts = [2,3,3,2,2,36];
+    payouts = [1,2,2,1,1,35];//moltiplicatori giocate es nero paga x1 ma non scala la puntata
     numberRange = [1,2,2,1,1,36];
     betAmount = 10000000000000000; /* 0.01 ether */
     maxAmountAllowedInTheBank = 2000000000000000000; /* 2 ether */
@@ -61,34 +61,56 @@ contract Roulette is Profile{
   }
 
 
-  function bet(uint8 number, uint8 betType) payable public{
+
+  function bet(uint8 number, uint8 betType,uint256 am) payable public{
+
     /* 
        A bet is valid when:
        1 - the value of the bet is correct (=betAmount)
        2 - betType is known (between 0 and 5)
        3 - the option betted is valid (don't bet on 37!)
        4 - the bank has sufficient funds to pay the bet
-    */
-    //require(msg.value == betAmount, "non hai versato abbastanza fondi");                               // 1
-   // require(amount>=10000000000000000,"per ogni puntata almeno 0.01eth");
+     */
+      //require(msg.value == betAmount, "non hai versato abbastanza fondi");                               // 1
+    // require(amount>=10000000000000000,"per ogni puntata almeno 0.01eth");
     require(betType >= 0 && betType <= 5, "non hai inserito la giusta giocata");                         // 2
     require(number >= 0 && number <= numberRange[betType], "che numero di giocata hai selezionato?");        // 3
    
-   // uint payoutForThisBet = payouts[betType] * msg.value; 
-  //  uint provisionalBalance = necessaryBalance + payoutForThisBet;
-  // require(provisionalBalance < address(this).balance, "la banca non ha abbastanza fondi da darti se vincessi");           // 4
-    /* we are good to go */
-    //necessaryBalance += payoutForThisBet;
+      // uint payoutForThisBet = payouts[betType] * msg.value; 
+     //  uint provisionalBalance = necessaryBalance + payoutForThisBet;
+    // require(provisionalBalance < address(this).balance, "la banca non ha abbastanza fondi da darti se vincessi");           // 4
+     /* we are good to go */
+      //necessaryBalance += payoutForThisBet;
 
 
     bets.push(Bet({
-      amount: msg.value,
+      amount: am,
       betType: betType,
       player: msg.sender,
       number: number
     }));
 
   }
+
+/*
+    function savebets(string[] memory _rouletteBet) payable public returns(uint){
+
+      uint lung= _rouletteBet.length;
+      uint8 i=0;
+      for(i=0;i<lung;i+3){
+        bets.push(Bet({
+      //amount: _rouletteBet[i],
+      amount: 10000000000000000,
+      betType: 1,
+      player: msg.sender,
+      number: 1
+    }));
+      }
+
+    uint b=bets.length;
+
+    return b;
+    }*/
 
 
 //prova per valutare la corretta esecuzione della funzione bet
@@ -110,7 +132,7 @@ contract Roulette is Profile{
   }
 
 
-   function spinWheel() public returns (uint){
+   function spinWheel() public {
     /* are there any bets? */
     require(bets.length > 0, "non ci sono giocate");
     //require(msg.value > 10000000000000000 wei, "non sono stati versati abbastanza fondi ");  
@@ -124,9 +146,11 @@ contract Roulette is Profile{
     Bet memory lb = bets[bets.length-1];
     uint number = uint(keccak256(abi.encodePacked(block.timestamp, diff, hash, lb.betType, lb.player, lb.number))) % 37;
     /* check every bet for this number */ 
-    for (uint i = 0; i < bets.length; i++) {
+    //for (uint i = 0; i < bets.length; i++) {
+     uint i=bets.length-1;
       bool won = false;
       Bet memory b = bets[i];
+      betAmount=bets[i].amount;
       if (number == 0) {
         won = (b.betType == 5 && b.number == 0);                   /* bet on 0 */
       } else {
@@ -161,14 +185,21 @@ contract Roulette is Profile{
             }
           }
         }
-      }
+    //  }
+      addToPlayer[b.player].totalCashFlow +=betAmount;
+
+
       /* if winning bet, add to player winnings balance */
       if (won) {
-        winnings[b.player] += betAmount * payouts[b.betType];
+        //aggiungiamo il saldo all utente
+       // winnings[b.player] += betAmount * payouts[b.betType];
         //aggiorniamo le giocate del giocatore;
         addToPlayer[b.player].game +=1;
+        addToPlayer[b.player].gameWin +=1;
         addToPlayer[b.player].cashInBank += betAmount * payouts[b.betType];
       }else{
+        //togliamo saldo all'utente
+        addToPlayer[b.player].cashInBank -=betAmount;
         addToPlayer[b.player].game +=1;
       }
     }
@@ -181,7 +212,7 @@ contract Roulette is Profile{
 
     /* returns 'random' number to UI */
     emit RandomNumber(number);
-    return number;
+    //return number;
   }
 
 

@@ -20,9 +20,10 @@ html, body{
 
 /*notification*/
 #notification{
+	padding: 30px;
 	position: absolute;
 	width: 500px;
-	height: 318px;
+	height: 280px;
 	background-color: #ad0205;
 	z-index: 10;
 	border: 8px solid #d3b201;
@@ -33,15 +34,15 @@ html, body{
 .nSpan{
 	display: block;
 	position: relative;
-	top: 105px;
-	font-size: 53px;
+	top: 16px;
+	font-size: 28px;
 	text-align: center;
 }
 
 .nBtn{
 	display: block;
 	position: relative;
-	top: 116px;
+	top: 50px;
 	left: 25%;
 	width: 45%;
 	padding: 10px;

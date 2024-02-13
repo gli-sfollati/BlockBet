@@ -5,6 +5,7 @@ App = {
 	init: async function() {
 		// creazione roulette
 		$.getJSON('Roulette.json', function(data) {
+			
 			startGame();
 	});
 	
@@ -40,18 +41,34 @@ App = {
 	
     initContract: function() {
 		
-		$.getJSON('Roulette.json', function(data) {
-		  // Get the necessary contract artifact file and instantiate it with @truffle/contract
+		var RouletteInstance;
+		$.getJSON('Roulette.json', function (data) {
 		  var RouletteArtifact = data;
 		  App.contracts.Roulette = TruffleContract(RouletteArtifact);
-		
-		  // Set the provider for our contract
 		  App.contracts.Roulette.setProvider(App.web3Provider);
+		  App.contracts.Roulette.deployed().then(async function (instance) {
+	
+			var soldiNelConto = document.getElementById("bankSpan");
+	
+			RouletteInstance = instance;
+	
+	
+	
+			var accounts = await ethereum.request({ method: 'eth_accounts' });
+			var data = await RouletteInstance.getStatoUtente.call({ from: accounts[0] });
+	
+			bankValue = (data[4]/1000000000000000000) ;
+			soldiNelConto.innerHTML = (bankValue) ;
 		
-		  // Use our contract to retrieve and mark the adopted pets
-		  //return App.spinWheel2();
+	
+			return data;
+		  }).then(function (result) {
+			console.log("è stato visualizzato tutto correttamente " + " nome: " + result[0] + " game: " + result[1] + " gameWin: " + result[6]+ "maxWin: " + result[2] + "totalcashlow: " + result[3] + " cash in bank: " + result[4] + " indirizzo" + result[5])
+			if(result[4]==0){
+				gameOver();
+			}
+		  });
 		});
-		
 	
 		return App.bindEvents();
 	  },
@@ -66,7 +83,7 @@ App = {
 	  },
 
 
-	goGame: function(event) {
+	goGame: async function(event) {
 		//var accounts = ethereum.request({ method: 'eth_accounts' });
       //console.log(accounts);
 		//event.preventDefault();
@@ -74,6 +91,10 @@ App = {
 		var rouletteInstance;
 
 		var lung=bet.length;
+		var bets = [];
+
+		console.log("prima");
+		console.log(bet);
 
 		console.log("cifra da scommetere: "+bet[lung-1].amt);
 		console.log("BetType: "+bet[lung-1].bettype);
@@ -82,36 +103,57 @@ App = {
 		var amount=bet[lung-1].amt*1000000000000000000;
 		var bettype=bet[lung-1].bettype;
 		var number=bet[lung-1].val;
-		
-	
+
+		var k=0;
+		for(var i=0;i<bet.length;i++){
+			if(bet[i].amt!=0){
+				bets[k]=String(1);
+				k++;
+				bets[k]=String(2);
+				k++;
+				bets[k]=String(3);
+				k++;
+			}
+		}
+
+		console.log("dopo");
+		console.log(bets);
+
+
+
 		$.getJSON('Roulette.json', function (data) {
 			var RouletteArtifact = data;
 			App.contracts.Roulette = TruffleContract(RouletteArtifact);
 			App.contracts.Roulette.setProvider(App.web3Provider);
-
-			
+	
   
 			App.contracts.Roulette.deployed().then(async function (instance) {
 			  rouletteInstance = instance;
   
 			  var accounts = await ethereum.request({ method: 'eth_accounts' });
-
+			  console.log(bet[k]);
+			 
 			  console.log(accounts[0]);
 
-			  const options = {from: accounts[0], value:amount};
-			  return await rouletteInstance.bet(number,bettype,options);
+			  const options = {from: accounts[0]};
+
+			  
+			  
+			return await rouletteInstance.bet(number,bettype,amount,options);
+
+			 // return await rouletteInstance.savebets(byteArray,options);
 			 // var ritorno = price[0];
 			  //console.log(price);
 			
 			}).then(function (result) {  
-				
+				k++;
+				console.log(result);
 				return App.getBets();
 				//return App.getStatoUtente();
 			});
-
 			
 		});
-
+		
 	  },
 
 	  getBets: function() {
@@ -178,6 +220,7 @@ App = {
 			
 			}).then(function (result) {   
 				console.log("ciao3");  
+				console.log(result);
 				var r=result;
 				var numero=r.logs[0].args.number.c[0]
 			  console.log("estratto: "+ numero);
@@ -192,24 +235,24 @@ App = {
 
 	//non stampa alcun dato dell utente
 	getStatoUtente:async  function() {
-		var profileInstance;
+		var rouletteInstance;
 		//var dato1 = document.getElementById("dato1");
-		$.getJSON('Profile.json', function (data) {
-			var ProfileArtifact = data;
-			App.contracts.Profile = TruffleContract(ProfileArtifact);
+		$.getJSON('Roulette.json', function (data) {
+			var RouletteArtifact = data;
+			App.contracts.Roulette = TruffleContract(RouletteArtifact);
   
-			App.contracts.Profile.setProvider(App.web3Provider);
+			App.contracts.Roulette.setProvider(App.web3Provider);
   
-			App.contracts.Profile.deployed().then(async function (instance) {
-			  profileInstance = instance;
+			App.contracts.Roulette.deployed().then(async function (instance) {
+				rouletteInstance = instance;
 			  var accounts = await ethereum.request({ method: 'eth_accounts' });
 			  console.log(accounts[0]);
 
-				var data =await profileInstance.getStatoUtente.call();
+				var data =await rouletteInstance.getStatoUtente.call({ from: accounts[0] });
 				console.log(data);
 				return data;
 			}).then(function (result) {
-				
+				console.log("è stato visualizzato tutto correttamente " + " nome: " + result[0] + " game: " + result[1] +" gameWin: " + result[6]+ "maxWin: " + result[2] + "totalcashlow: " + result[3] + " cash in bank: " + result[4] + " indirizzo" + result[5])
 			});
 		});
 		
@@ -230,7 +273,7 @@ App = {
 	const GAS = 70000000;
 	const GAS_PRICE = 2000000000;
 
-  let bankValue = 10;
+  let bankValue = 0;
   let currentBet = 0;
   let wager = 0.05;
   let lastWager = 0.0;
@@ -244,7 +287,6 @@ App = {
   let container = document.createElement('div');
   container.setAttribute('id', 'container');
   document.body.append(container);
-
 
 function resetGame(){
 	bankValue = 10;
@@ -268,15 +310,30 @@ function gameOver(){
 	notification.setAttribute('id', 'notification');
 		let nSpan = document.createElement('span');
 		nSpan.setAttribute('class', 'nSpan');
-		nSpan.innerText = 'Bankrupt';
+		nSpan.innerText = 'Non disponi dei fondi necessari per poter giocare...';
 		notification.append(nSpan);
 
 		let nBtn = document.createElement('div');
 		nBtn.setAttribute('class', 'nBtn');
-		nBtn.innerText = 'Play again';	
+		nBtn.innerText = 'Aggiungi Fondi';	
 		nBtn.onclick = function(){
-			resetGame();
+			window.location.href = '/ilMioConto.html';
+			//resetGame();
 		};
+
+		let spazio = document.createElement('div');
+		spazio.style.height='25px';
+
+		let esciBtn = document.createElement('div');
+		esciBtn.setAttribute('class', 'nBtn');
+		esciBtn.innerText = 'Esci';	
+		esciBtn.onclick = function(){
+			window.location.href = '/index.html';
+			//resetGame();
+		};
+		
+		notification.append(esciBtn);
+		notification.append(spazio);
 		notification.append(nBtn);
 	container.prepend(notification);
 }
@@ -613,6 +670,7 @@ function clearBet(){
   */
 
 function setBet(e, n, t, o,betType,value){
+	
 	//log per verificare le chips
 	console.log(n);
 	console.log(t);
@@ -683,6 +741,7 @@ function setBet(e, n, t, o,betType,value){
 			e.append(chip);
 		}
 	}
+	
 }
 
 function spin(number){

@@ -10,6 +10,7 @@ contract Profile {
     struct Player {
         string username;
         uint game; //totali partite giocate
+        uint gameWin; //partite vinte
         uint maxWin; //massima vincita
         uint totalCashFlow; //totali dei soldi giocati
         uint cashInBank; //soldi depositati nel contratto
@@ -29,7 +30,7 @@ contract Profile {
     constructor() payable {
         
         creator = payable(msg.sender);
-        addToPlayer[creator] = Player("_adil_2", 0, 0, 0, 0, creator, true);
+        addToPlayer[creator] = Player("_adil_2", 0, 0, 0, 0, 0, creator, true);
 
     }
 
@@ -73,7 +74,7 @@ contract Profile {
     }
 
     //restituisce le statistiche di un player
-    function getStatoUtente() public view returns (string memory, uint, uint, uint, uint, address,bool){
+    function getStatoUtente() public view returns (string memory, uint, uint, uint, uint, address,uint, bool){
         //verifichiamo che il chiamante sia il diretto interessato.
         require(addToPlayer[msg.sender].addPlayer == msg.sender,"L'indirizzo non esiste nel mapping o non combaciano");
 
@@ -84,6 +85,7 @@ contract Profile {
             addToPlayer[msg.sender].totalCashFlow,
             addToPlayer[msg.sender].cashInBank,
             addToPlayer[msg.sender].addPlayer,
+            addToPlayer[msg.sender].gameWin,
             addToPlayer[msg.sender].exist
         );
     }
@@ -95,7 +97,7 @@ contract Profile {
 
         address p = msg.sender;
 
-        Player memory giocatore = Player(_name, 0, 0, 0, 0, p, true);
+        Player memory giocatore = Player(_name, 0, 0, 0, 0, 0, p, true);
 
         addToPlayer[p] = giocatore;
         return p;

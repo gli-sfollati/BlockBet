@@ -83,12 +83,12 @@ Profilo = {
         }
 
         nome.innerHTML += data[0];
-        soldiTotaliGiocati.innerHTML += data[3];
-        scommesseVinte.innerHTML += 0; //da fare nel contratto
+        soldiTotaliGiocati.innerHTML += (data[3]/1000000000000000000+ " eth");
         scommesseiPazzate.innerHTML += data[1];
         soldiNelConto.innerHTML += (data[4]/1000000000000000000+ " eth") ;
         massimaVincita.innerHTML += data[2];
         indirizzo.innerHTML += data[5];
+        scommesseVinte.innerHTML += data[6]; //da fare nel contratto
         console.log(data[6]);
 
       }catch{
@@ -100,7 +100,7 @@ Profilo = {
 
         return data;
       }).then(function (result) {
-        console.log("è stato visualizzato tutto correttamente " + " nome: " + result[0] + " game: " + result[1] + "maxWin: " + result[2] + "totalcashlow: " + result[3] + " cash in bank: " + result[4] + " indirizzo" + result[5])
+        console.log("è stato visualizzato tutto correttamente " + " nome: " + result[0] + " game: " + result[1] +" gameWin: " + result[6]+ "maxWin: " + result[2] + "totalcashlow: " + result[3] + " cash in bank: " + result[4] + " indirizzo" + result[5])
       });
     });
 
