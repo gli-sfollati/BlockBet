@@ -1,2 +1,2 @@
-# ETHRoulette2
+# BlockBet
 Blockchain project
