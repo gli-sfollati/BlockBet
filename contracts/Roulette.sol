@@ -64,6 +64,9 @@ contract Roulette is Profile{
 
   function bet(uint8 number, uint8 betType,uint256 am) payable public{
 
+    //prossimo upgrade far memorizzare più bet
+    delete bets; //in modo da conservare un solo bet al suo interno
+
     /* 
        A bet is valid when:
        1 - the value of the bet is correct (=betAmount)
@@ -92,26 +95,6 @@ contract Roulette is Profile{
 
   }
 
-/*
-    function savebets(string[] memory _rouletteBet) payable public returns(uint){
-
-      uint lung= _rouletteBet.length;
-      uint8 i=0;
-      for(i=0;i<lung;i+3){
-        bets.push(Bet({
-      //amount: _rouletteBet[i],
-      amount: 10000000000000000,
-      betType: 1,
-      player: msg.sender,
-      number: 1
-    }));
-      }
-
-    uint b=bets.length;
-
-    return b;
-    }*/
-
 
 //prova per valutare la corretta esecuzione della funzione bet
  function getBet() public view returns(uint,uint8,uint8,uint,uint){
@@ -125,10 +108,6 @@ contract Roulette is Profile{
         address(this).balance
        );
     
-  }
-
-  function getNumber() public view returns(uint){
-       return estratto;
   }
 
 
@@ -145,12 +124,14 @@ contract Roulette is Profile{
     bytes32 hash = blockhash(block.number-1);
     Bet memory lb = bets[bets.length-1];
     uint number = uint(keccak256(abi.encodePacked(block.timestamp, diff, hash, lb.betType, lb.player, lb.number))) % 37;
+
     /* check every bet for this number */ 
     //for (uint i = 0; i < bets.length; i++) {
-     uint i=bets.length-1;
+     uint i=0; //prende la prima e unica puntata
       bool won = false;
       Bet memory b = bets[i];
       betAmount=bets[i].amount;
+      
       if (number == 0) {
         won = (b.betType == 5 && b.number == 0);                   /* bet on 0 */
       } else {
@@ -185,8 +166,8 @@ contract Roulette is Profile{
             }
           }
         }
-    //  }
-      addToPlayer[b.player].totalCashFlow +=betAmount;
+      }
+       addToPlayer[b.player].totalCashFlow +=betAmount;
 
 
       /* if winning bet, add to player winnings balance */
@@ -199,13 +180,13 @@ contract Roulette is Profile{
         addToPlayer[b.player].cashInBank += betAmount * payouts[b.betType];
       }else{
         //togliamo saldo all'utente
-        addToPlayer[b.player].cashInBank -=betAmount;
+        addToPlayer[b.player].cashInBank = addToPlayer[b.player].cashInBank - betAmount;
         addToPlayer[b.player].game +=1;
       }
-    }
+   // }
     /* delete all bets */
     //bets.length = 0;
-    delete bets;
+   delete bets;
 
     /* reset necessaryBalance */
     necessaryBalance = 0;
