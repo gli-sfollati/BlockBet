@@ -86,7 +86,7 @@ Profilo = {
         soldiTotaliGiocati.innerHTML += (data[3]/1000000000000000000+ " eth");
         scommesseiPazzate.innerHTML += data[1];
         soldiNelConto.innerHTML += (data[4]/1000000000000000000+ " eth") ;
-        massimaVincita.innerHTML += data[2];
+        massimaVincita.innerHTML += (data[2]/1000000000000000000+ " eth");
         indirizzo.innerHTML += data[5];
         scommesseVinte.innerHTML += data[6]; //da fare nel contratto
         console.log(data[6]);

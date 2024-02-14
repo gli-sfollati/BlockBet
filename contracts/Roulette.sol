@@ -178,6 +178,9 @@ contract Roulette is Profile{
         addToPlayer[b.player].game +=1;
         addToPlayer[b.player].gameWin +=1;
         addToPlayer[b.player].cashInBank += betAmount * payouts[b.betType];
+        if((betAmount * payouts[b.betType])+ betAmount > addToPlayer[b.player].maxWin){
+          addToPlayer[b.player].maxWin = (betAmount * payouts[b.betType])+betAmount;
+        }
       }else{
         //togliamo saldo all'utente
         addToPlayer[b.player].cashInBank = addToPlayer[b.player].cashInBank - betAmount;
