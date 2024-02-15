@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlockBet</title>
-    <link rel="icon" href="./img/pngegg.png" >
+    <link rel="icon" href="./img/blockbet2.png" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body class="bg-dark">
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #575c61;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #0d0d0d;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">BlockBet</a>
+            <a class="navbar-brand" style="color: white;">BlockBet</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,13 +22,14 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                        <a class="nav-link active" style="color: white;" aria-current="page"
+                            href="./index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./profile.html">Profilo</a>
+                        <a class="nav-link" style="color: white;" href="./profile.html">Profilo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./ilMioConto.html">Il mio conto</a>
+                        <a class="nav-link" style="color: white;" href="./ilMioConto.html">Il mio conto</a>
                     </li>
                 </ul>
             </div>
@@ -37,12 +38,17 @@
 
     <div class="container bg-dark" style="margin-bottom:12px; margin-top: 10px;">
 
-        <div style=" width: 100%; padding: 20px; border: 1px solid #ccc;">
-
-
-            <div>
-                <button class="btn btn-deposit" type="button">Deposita</button>
-            </div>
+        <div class="welcomeDiv" style="background-image: url('./img/blockbet2.png'); width: 100%;
+        height: 491px;
+        padding: 0px 220px 0 220px;
+        border: 1px solid #ccc;
+        text-align: center;
+        color: white;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;">
 
         </div>
     </div>
@@ -52,43 +58,27 @@
         <div class="row row-cols-2">
 
 
-            <div class=" col-sm" style="margin-bottom: 10px;">
-                <div class="card" style="width: 18rem; background-color: #575c61;">
-                    <img src="img/pngegg.png" class="card-img-top" alt="..." style="width: 85%; margin: auto;">
-                    <div class="card-body">
-                        <h5 class="card-title">ETHRoulette</h5>
-                        <p class="card-text">Play with us at our roulette, you'll have a lot of fun... <br>
-                            Remember, it's just a game.</p>
-                        <a href="/Roulette.html" class="btn btn-primary" style="margin-top: 7px;">Let's play</a>
+
+
+            <div class=" col-sm">
+                <div class="card" style="background-color: #575c61;">
+                    <img src="img/ETHRoulette2.png" class="card-img-top" style="padding: 20px;">
+                    <div class="card-body" style="color: white;">
+                        <h5 class="card-title">Roulette</h5>
+                        <p class="card-text">Roulette game.
+                            Try and Win</p>
+                        <a href="./Roulette.html" class="btn btn-primary">Play</a>
                     </div>
                 </div>
             </div>
 
-
             <div class=" col-sm">
-                <div class="card" style="width: 18rem; background-color: #575c61;">
-                    <img src="img/blackjack.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">ETHBlackjack</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">In development</a>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class=" col-sm">
-                <div class="card" style="width: 18rem; background-color: #575c61;">
-                    <img src="img/pngegg.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="card" style="background-color: #575c61;">
+                    <img src="img/pngegg.png" class="card-img-top" style="padding: 20px;">
+                    <div class="card-body" style="color: white;">
+                        <h5 class="card-title">Slot machine</h5>
+                        <p class="card-text">vieni a pazziare</p>
+                        <a href="#" class="btn btn-primary">Play</a>
                     </div>
                 </div>
             </div>
@@ -96,53 +86,27 @@
 
 
             <div class=" col-sm">
-                <div class="card" style="width: 18rem; background-color: #575c61;">
-                    <img src="img/pngegg.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div class="card" style="background-color: #575c61;">
+                    <img src="img/blackjack.png" class="card-img-top" style="padding: 20px;">
+                    <div class="card-body" style="color: white;">
+                        <h5 class="card-title">BlackJack</h5>
+                        <p class="card-text">Work in progress</p>
+                        <a style="display: none;" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>
-
-
-
-            <div class=" col-sm">
-                <div class="card" style="width: 18rem; background-color: #575c61;">
-                    <img src="img/pngegg.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class=" col-sm">
-                <div class="card" style="width: 18rem; background-color: #575c61;">
-                    <img src="img/pngegg.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-
-
 
         </div>
-
-
     </div>
+
+    <footer class="bg-body-tertiary text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05); color: azure;">
+            © 2024 Copyright:
+            <a class="text-body" href="https://mdbootstrap.com/">El Yousfi & Ocone</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
