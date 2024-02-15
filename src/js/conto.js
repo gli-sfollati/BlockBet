@@ -67,7 +67,8 @@ App = {
 
             RouletteInstance = instance;
               var data =await RouletteInstance.getStato.call();
-              dato1.value=data[0];
+              //dato1.value=data[0];
+              dato1.innerHTML=data[0];
               console.log("soldi totali ether: "+data[0]+" il prezzo è: "+ data[1]);
               return data;
           }).then(function (result) {

@@ -38,11 +38,13 @@
 
     <div class="container bg-dark" style="margin-bottom:12px; margin-top: 10px;">
 
-        <div style=" width: 100%; padding: 20px; border: 1px solid #ccc;">
+        <div style=" width: 100%; padding: 30px; border: 1px solid #ccc;border-radius:10px ;margin: 30px;">
 
             <div>
-                <label for="dato1" style="color: azure;">Saldo nel contratto in ether: </label>
-                <input type="text" id="dato1">
+                <label for="dato1" style="color: azure;float: left;margin-right: 10px;">Saldo nel contratto in ether: </label>
+                <p style="color: red;
+                font-size: 18px;" id="dato1" ></p>
+               <!-- <input type="text" readonly disabled id="dato2" >-->
             </div>
 
             <div class="divDeposito"> 
@@ -57,13 +59,13 @@
                 </p>
             </div>
 
-            <div>
-                <button class="btn-deposit" type="button" id="buttonDeposit">Deposita</button>
-            </div>
+          
+                <button class="btn-deposit btn" style="margin-right: 20px;" type="button" id="buttonDeposit">Deposita</button>
+            
 
-            <div>
-                <button class="btn-preleva" type="button" id="buttonCashOut">Preleva</button>
-            </div>
+            
+                <button class="btn-preleva btn" type="button" id="buttonCashOut">Preleva</button>
+            
 
         </div>
     </div>

@@ -1,13 +1,13 @@
-@media (min-width: 1200px){
-.container {
-    max-width: 1440px !important;
-}
+
+.container1 {
+    border: 1px solid #ccc;
+    border-radius: 10px; margin: 30px;max-width: -webkit-fill-available;
+    padding-bottom: 50px;
+
 }
 
 .cardProfilo{
-margin-left: 790px;
-width: 21rem;
-    padding-bottom: 15px;
+width: auto;
     padding-top: 0px;
     height: fit-content;
 }
