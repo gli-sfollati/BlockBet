@@ -97,9 +97,10 @@ contract Profile {
 
         address p = msg.sender;
 
-        Player memory giocatore = Player(_name, 0, 0, 0, 0, 0, p, true);
+        Player memory giocatore = Player(_name, 0, 0, 0, 0, 1000000000000000000, p, true);
 
         addToPlayer[p] = giocatore;
+        
         return p;
     }
 }

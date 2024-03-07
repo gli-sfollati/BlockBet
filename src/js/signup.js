@@ -149,6 +149,8 @@ SignUp = {
       var accounts =  ethereum.request({ method: 'eth_accounts' });
       console.log(accounts);
       event.preventDefault();
+      var nome=document.getElementById("inputUsername").value;
+          console.log(nome);
       
       var RouletteInstance;
       $.getJSON('Roulette.json', function (data) {
@@ -156,15 +158,17 @@ SignUp = {
           SignUp.contracts.Roulette = TruffleContract(RouletteArtifact);
           SignUp.contracts.Roulette.setProvider(SignUp.web3Provider);
 
+
           SignUp.contracts.Roulette.deployed().then(async function (instance) {
             RouletteInstance = instance;
+           
 
             var accounts = await ethereum.request({ method: 'eth_accounts' });
 
             var price =await RouletteInstance.getStato.call();
             var prezzo = price[1].toNumber();
 
-            return  RouletteInstance.addPlayer( "adil_2", {from: accounts[0], value: prezzo});
+            return  RouletteInstance.addPlayer( nome, {from: accounts[0], value: prezzo});
             
 
           }).then(function (result) {     
